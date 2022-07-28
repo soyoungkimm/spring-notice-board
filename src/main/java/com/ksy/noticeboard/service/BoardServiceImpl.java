@@ -3,6 +3,7 @@ package com.ksy.noticeboard.service;
 import com.ksy.noticeboard.dto.Board;
 import com.ksy.noticeboard.repository.BoardRepository;
 import com.ksy.noticeboard.util.Pagination;
+import com.ksy.noticeboard.vo.BoardState;
 import com.ksy.noticeboard.vo.BoardVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,11 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public List<BoardVO> getBoardList(Pagination pagination) {
-        return boardRepository.findAllByPagination(pagination);
+        List<BoardVO> boardList = boardRepository.findAllByPagination(pagination);
+        for (BoardVO board : boardList) {
+            board.setBoardState(BoardState.values()[board.getState()]);
+        }
+        return boardList;
     }
 
     @Override
@@ -32,7 +37,9 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardVO getBoard(int id) {
-        return boardRepository.findById(id);
+        BoardVO board = boardRepository.findById(id);
+        board.setBoardState(BoardState.values()[board.getState()]);
+        return board;
     }
 
     @Override
