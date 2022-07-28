@@ -77,4 +77,10 @@ public class BoardController {
         boardService.updateBoard(board);
         return "redirect:/board/{id}";
     }
+
+    @GetMapping("/{id}/delete")
+    public String deleteMovie(@PathVariable int id) {
+        boardService.deleteBoard(id);
+        return "redirect:/board/list";
+    }
 }

@@ -13,7 +13,7 @@ public interface BoardRepository {
     List<BoardVO> findAllByPagination(Pagination pagination);
     void create(Board board);
     void update(Board board);
-    void delete(Long id);
+    void delete(int id);
     int countAll();
     BoardVO findById(int id);
 }

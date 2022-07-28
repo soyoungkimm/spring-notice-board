@@ -44,4 +44,8 @@
         update post set title=#{title}, content=#{content}, state=#{state}
         where id=#{id}
     </update>
+
+    <delete id="delete" parameterType="int">
+        delete from post where id=#{id};
+    </delete>
 </mapper>

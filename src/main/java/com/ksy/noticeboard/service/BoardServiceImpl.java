@@ -45,4 +45,9 @@ public class BoardServiceImpl implements BoardService{
     public void updateBoard(Board board) {
         boardRepository.update(board);
     }
+
+    @Override
+    public void deleteBoard(int id) {
+        boardRepository.delete(id);
+    }
 }

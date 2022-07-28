@@ -13,4 +13,5 @@ public interface BoardService {
     BoardVO getBoard(int id);
     int createBoard(Board board);
     void updateBoard(Board board);
+    void deleteBoard(int id);
 }
