@@ -48,7 +48,7 @@
             </table>
             <div style="text-align : center" >
                 <a href="/board/list" class="btn btn-success">목록으로</a>
-                <a href="" class="btn btn-primary">수정</a>
+                <a href="/board/${board.id}/edit" class="btn btn-primary">수정</a>
                 <a onclick="return confirm('정말로 삭제하시겠습니까?')"  href="" class="btn btn-danger">삭제</a>
             </div>
         </div>

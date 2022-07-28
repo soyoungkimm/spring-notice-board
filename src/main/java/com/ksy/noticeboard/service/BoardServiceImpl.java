@@ -40,4 +40,9 @@ public class BoardServiceImpl implements BoardService{
         boardRepository.create(board);
         return board.getId();
     }
+
+    @Override
+    public void updateBoard(Board board) {
+        boardRepository.update(board);
+    }
 }

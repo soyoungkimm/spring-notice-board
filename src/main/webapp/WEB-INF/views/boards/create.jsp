@@ -54,17 +54,6 @@
         <div class="col-1"></div>
     </div>
 </div>
-<script>
-    $('#state_slide').click(function(){
-        var checked = $('#state_slide').is(':checked');
-        if(checked){
-            $('#state_label').text('공개');
-        }
-        else {
-            $('#state_label').text('비공개');
-        }
-    });
-</script>
 <c:import url="../sections/footer.jsp"/>
 </body>
 </html>

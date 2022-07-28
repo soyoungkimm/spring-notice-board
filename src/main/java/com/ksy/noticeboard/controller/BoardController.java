@@ -12,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Controller
 @RequiredArgsConstructor
@@ -63,6 +62,19 @@ public class BoardController {
         int id = boardService.createBoard(board);
 
         redirectAttributes.addAttribute("id", id);
+        return "redirect:/board/{id}";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String updateForm(@PathVariable int id, Model model) {
+        model.addAttribute("board", boardService.getBoard(id));
+        return "boards/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String update(@PathVariable int id, @Valid Board board, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) return "boards/edit";
+        boardService.updateBoard(board);
         return "redirect:/board/{id}";
     }
 }
