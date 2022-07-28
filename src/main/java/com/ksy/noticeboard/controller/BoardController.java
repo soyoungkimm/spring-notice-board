@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,7 +22,7 @@ public class BoardController {
         return "home";
     }
 
-    @GetMapping("list")
+    @GetMapping("/list")
     public String list(Model model, @RequestParam(value="p", required = false) Integer p) {
         // 페이지네이션
         int curPageNo = (p != null)? p : 1;// 현재 페이지 번호
@@ -36,5 +37,9 @@ public class BoardController {
         return "boards/list";
     }
 
-
+    @GetMapping("/{id}")
+    public String detail(Model model, @PathVariable int id) {
+        model.addAttribute("board", boardService.getBoard(id));
+        return "boards/detail";
+    }
 }

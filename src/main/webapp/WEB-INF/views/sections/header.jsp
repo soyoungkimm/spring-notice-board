@@ -12,4 +12,8 @@
     .pagination {
         justify-content: center;
     }
+    pre{
+        font-family: Arial;
+        font-size: 12pt;
+    }
 </style>

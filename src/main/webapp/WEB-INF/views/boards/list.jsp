@@ -11,6 +11,12 @@
 <html>
 <head>
     <c:import url="../sections/header.jsp"/>
+    <style>
+        .board_tr:hover {
+            background: #f3f3f3;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -29,7 +35,7 @@
                 </thead>
                 <tbody class="table-group-divider">
                 <c:forEach items="${boardList}" var="b">
-                    <tr>
+                    <tr class="board_tr" onclick="location.href='/board/${b.id}'">
                         <td>${b.title}</td>
                         <td>${b.writer_name}</td>
                         <td>${b.write_time}</td>

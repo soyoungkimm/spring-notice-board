@@ -15,4 +15,5 @@ public interface BoardRepository {
     void update(Board board);
     void delete(Long id);
     int countAll();
+    BoardVO findById(int id);
 }

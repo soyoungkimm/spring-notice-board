@@ -30,5 +30,8 @@ public class BoardServiceImpl implements BoardService{
         return boardRepository.countAll();
     }
 
-
+    @Override
+    public BoardVO getBoard(int id) {
+        return boardRepository.findById(id);
+    }
 }
