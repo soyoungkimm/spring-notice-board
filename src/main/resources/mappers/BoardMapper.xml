@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ksy.noticeboard.repository.BoardRepository">
+
+    <resultMap id="boardResult" type="BoardVO">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="write_time" column="write_time" />
+        <result property="view" column="view" />
+        <result property="state" column="state" />
+        <result property="writer_id" column="writer_id" />
+        <result property="writer_name" column="writer_name" />
+    </resultMap>
+
+    <select id="findAll" resultMap="boardResult">
+        select post.*, user.name as writer_name from post, user
+        where user.id=post.writer_id
+    </select>
+
+    <select id="findAllByPagination" resultMap="boardResult" parameterType="com.ksy.noticeboard.util.Pagination">
+        select post.*, user.name as writer_name from post, user
+        where user.id=post.writer_id
+        limit #{firstRow}, #{perPageRows}
+    </select>
+
+    <select id="countAll" resultType="int">
+        select count(*) as num from post
+    </select>
+</mapper>
