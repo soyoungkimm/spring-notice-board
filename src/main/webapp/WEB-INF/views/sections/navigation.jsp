@@ -21,7 +21,7 @@
                     <a class="nav-link" href="/board/list">리스트</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/board/create">새글작성</a>
+                    <a class="nav-link" href="/board/create-form">새글작성</a>
                 </li>
             </ul>
         </div>

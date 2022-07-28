@@ -22,16 +22,21 @@
 
     <select id="findAllByPagination" resultMap="boardResult" parameterType="com.ksy.noticeboard.util.Pagination">
         select post.*, user.name as writer_name from post, user
-        where user.id=post.writer_id
+        where user.id=post.writer_id and post.state=1
         limit #{firstRow}, #{perPageRows}
     </select>
 
     <select id="countAll" resultType="int">
-        select count(*) as num from post
+        select count(*) as num from post where state=1
     </select>
 
     <select id="findById" resultMap="boardResult" parameterType="int">
         select post.*, user.name as writer_name from post, user
         where user.id=post.writer_id and post.id=#{id}
     </select>
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="com.ksy.noticeboard.dto.Board">
+        insert into post(title, content, write_time, view, state, writer_id)
+        values (#{title}, #{content}, #{write_time}, #{view}, #{state}, #{writer_id})
+    </insert>
 </mapper>

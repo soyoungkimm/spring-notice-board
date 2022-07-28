@@ -16,4 +16,12 @@
         font-family: Arial;
         font-size: 12pt;
     }
+    #state_slide {
+        width : 40px;
+        height: 20px;
+    }
+    #state_label {
+        margin-left: 10px;
+    }
 </style>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>

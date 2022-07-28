@@ -11,4 +11,5 @@ public interface BoardService {
     List<BoardVO> getBoardList(Pagination pagination);
     int getBoardTotalNum();
     BoardVO getBoard(int id);
+    int createBoard(Board board);
 }

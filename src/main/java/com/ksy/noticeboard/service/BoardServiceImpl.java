@@ -34,4 +34,10 @@ public class BoardServiceImpl implements BoardService{
     public BoardVO getBoard(int id) {
         return boardRepository.findById(id);
     }
+
+    @Override
+    public int createBoard(Board board) {
+        boardRepository.create(board);
+        return board.getId();
+    }
 }

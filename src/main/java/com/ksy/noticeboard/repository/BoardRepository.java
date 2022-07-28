@@ -11,7 +11,7 @@ import java.util.List;
 public interface BoardRepository {
     List<BoardVO> findAll();
     List<BoardVO> findAllByPagination(Pagination pagination);
-    void save(Board board);
+    void create(Board board);
     void update(Board board);
     void delete(Long id);
     int countAll();
