@@ -10,7 +10,7 @@ public class BoardVO {
     private String title;
     private String content;
     private String write_time;
-    private int view;
+    private int view_count;
     private int state; // 0: 비공개, 1: 공개
     private int writer_id;
     private String writer_name;

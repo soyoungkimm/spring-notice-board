@@ -4,48 +4,48 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ksy.noticeboard.repository.BoardRepository">
 
-    <resultMap id="boardResult" type="com.ksy.noticeboard.vo.BoardVO">
-        <id property="id" column="id" />
-        <result property="title" column="title" />
-        <result property="content" column="content" />
-        <result property="write_time" column="write_time" />
-        <result property="view" column="view" />
-        <result property="state" column="state" />
-        <result property="writer_id" column="writer_id" />
-        <result property="writer_name" column="writer_name" />
-    </resultMap>
+<!--    <resultMap id="boardResult" type="com.ksy.noticeboard.vo.BoardVO">-->
+<!--        <id property="id" column="id" />-->
+<!--        <result property="title" column="title" />-->
+<!--        <result property="content" column="content" />-->
+<!--        <result property="write_time" column="write_time" />-->
+<!--        <result property="view_count" column="view_count" />-->
+<!--        <result property="state" column="state" />-->
+<!--        <result property="writer_id" column="writer_id" />-->
+<!--        <result property="writer_name" column="writer_name" />-->
+<!--    </resultMap>-->
 
-    <select id="findAll" resultMap="boardResult">
-        select post.*, user.name as writer_name from post, user
-        where user.id=post.writer_id
-    </select>
+<!--    <select id="findAll" resultMap="boardResult">-->
+<!--        select post.*, users.name as writer_name from post, users-->
+<!--        where users.id=post.writer_id-->
+<!--    </select>-->
 
-    <select id="findAllByPagination" resultMap="boardResult" parameterType="com.ksy.noticeboard.util.Pagination">
-        select post.*, user.name as writer_name from post, user
-        where user.id=post.writer_id
-        limit #{firstRow}, #{perPageRows}
-    </select>
+<!--    <select id="findAllByPagination" resultMap="boardResult" parameterType="com.ksy.noticeboard.util.Pagination">-->
+<!--        select post.*, users.name as writer_name from post, users-->
+<!--        where users.id=post.writer_id-->
+<!--        limit #{firstRow}, #{perPageRows}-->
+<!--    </select>-->
 
-    <select id="countAll" resultType="int">
-        select count(*) as num from post
-    </select>
+<!--    <select id="countAll" resultType="int">-->
+<!--        select count(*) as num from post-->
+<!--    </select>-->
 
-    <select id="findById" resultMap="boardResult" parameterType="int">
-        select post.*, user.name as writer_name from post, user
-        where user.id=post.writer_id and post.id=#{id}
-    </select>
+<!--    <select id="findById" resultMap="boardResult" parameterType="int">-->
+<!--        select post.*, users.name as writer_name from post, users-->
+<!--        where users.id=post.writer_id and post.id=#{id}-->
+<!--    </select>-->
 
-    <insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="Board">
-        insert into post(title, content, write_time, view, state, writer_id)
-        values (#{title}, #{content}, #{write_time}, #{view}, #{state}, #{writer_id})
-    </insert>
+<!--    <insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="Board">-->
+<!--        insert into post(title, content, write_time, view_count, state, writer_id)-->
+<!--        values (#{title}, #{content}, #{write_time}, #{view_count}, #{state}, #{writer_id})-->
+<!--    </insert>-->
 
-    <update id="update" parameterType="Board">
-        update post set title=#{title}, content=#{content}, state=#{state}
-        where id=#{id}
-    </update>
+<!--    <update id="update" parameterType="Board">-->
+<!--        update post set title=#{title}, content=#{content}, state=#{state}-->
+<!--        where id=#{id}-->
+<!--    </update>-->
 
-    <delete id="delete" parameterType="int">
-        delete from post where id=#{id};
-    </delete>
+<!--    <delete id="delete" parameterType="int">-->
+<!--        delete from post where id=#{id};-->
+<!--    </delete>-->
 </mapper>
