@@ -16,8 +16,8 @@ public class Board {
     @NotBlank(message = "내용은 필수 값입니다.")
     private String content;
 
-    private String write_time;
-    private int view_count;
+    private String writeTime;
+    private int viewCount;
     private int state; // 0: 비공개, 1: 공개
-    private int writer_id;
+    private int writerId;
 }

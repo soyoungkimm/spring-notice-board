@@ -4,23 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ksy.noticeboard.repository.BoardRepository">
 
-    <resultMap id="boardResult" type="com.ksy.noticeboard.vo.BoardVO">
-        <result property="id" column="id" />
-        <result property="title" column="title" />
-        <result property="content" column="content" />
-        <result property="write_time" column="write_time" />
-        <result property="view_count" column="view_count" />
-        <result property="state" column="state" />
-        <result property="writer_id" column="writer_id" />
-        <result property="writer_name" column="writer_name" />
-    </resultMap>
-
-    <select id="findAll" resultMap="boardResult">
+    <select id="findAll" resultType="BoardVO">
         select post.*, users.name as writer_name from post, users
         where users.id=post.writer_id
     </select>
 
-    <select id="findAllByPagination" resultMap="boardResult" parameterType="com.ksy.noticeboard.util.Pagination">
+    <select id="findAllByPagination" resultType="BoardVO" parameterType="Pagination">
         SELECT post.*, users.name as user_name from post, users
         WHERE rownum BETWEEN #{firstRow} AND #{perPageRows}
     </select>
@@ -29,14 +18,14 @@
         select count(*) as num from post
     </select>
 
-    <select id="findById" resultMap="boardResult" parameterType="int">
+    <select id="findById" resultType="BoardVO" parameterType="int">
         select post.*, users.name as writer_name from post, users
         where users.id=post.writer_id and post.id=#{id}
     </select>
 
     <insert id="create" parameterType="Board">
         insert into post
-        values (post_seq.nextval, #{title}, #{content}, #{write_time}, #{view_count}, #{state}, #{writer_id})
+        values (post_seq.nextval, #{title}, #{content}, #{writeTime}, #{viewCount}, #{state}, #{writerId})
         <selectKey resultType="int" keyProperty="id" order="AFTER">
             SELECT POST_SEQ.CURRVAL from DUAL
         </selectKey>

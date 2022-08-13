@@ -32,11 +32,11 @@
                     </tr>
                     <tr>
                         <td style="width: 20%;">작성자</td>
-                        <td colspan="2" style="min-height: 200px; text-align: left;">${board.writer_name}</td>
+                        <td colspan="2" style="min-height: 200px; text-align: left;">${board.writerName}</td>
                     </tr>
                     <tr>
                         <td style="width: 20%;">작성일자</td>
-                        <td colspan="2" style="min-height: 200px; text-align: left;">${board.write_time}</td>
+                        <td colspan="2" style="min-height: 200px; text-align: left;">${board.writeTime}</td>
                     </tr>
                     <tr>
                         <td style="width: 20%;">내용</td>
