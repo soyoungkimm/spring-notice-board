@@ -37,8 +37,8 @@
                 <c:forEach items="${boardList}" var="b">
                     <tr class="board_tr" onclick="location.href='/board/${b.id}'">
                         <td>${b.title}</td>
-                        <td>${b.writer_name}</td>
-                        <td>${b.write_time}</td>
+                        <td>${b.writerName}</td>
+                        <td>${b.writeTime}</td>
                     </tr>
                 </c:forEach>
                 </tbody>

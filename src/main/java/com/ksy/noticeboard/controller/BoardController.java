@@ -56,9 +56,9 @@ public class BoardController {
         if(bindingResult.hasErrors()) return "boards/create";
 
         int user_id = 1; // 현재 로그인 한 사람 <-- 임시
-        board.setWriter_id(user_id);
+        board.setWriterId(user_id);
         Timestamp current_time = new Timestamp(System.currentTimeMillis());
-        board.setWrite_time(String.valueOf(current_time));
+        board.setWriteTime(String.valueOf(current_time));
         int id = boardService.createBoard(board);
 
         redirectAttributes.addAttribute("id", id);
