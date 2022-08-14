@@ -46,10 +46,17 @@
                     </tr>
                 </tbody>
             </table>
-            <div style="text-align : center" >
-                <a href="/board/list" class="btn btn-success">목록으로</a>
-                <a href="/board/${board.id}/edit" class="btn btn-primary">수정</a>
-                <a onclick="if (confirm('정말로 삭제하시겠습니까?')) location.href='/board/${board.id}/delete';"  class="btn btn-danger">삭제</a>
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4" style="text-align : center">
+                    <a href="/board" class="btn btn-success" style="float : left; margin-right: 10px">목록으로</a>
+                    <a href="/board/${board.id}/edit" class="btn btn-primary" style="float : left; margin-right: 10px">수정</a>
+                    <form id="delete_form" action="/board/${board.id}" method="post" style="float : left;">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <a onclick="if (confirm('정말로 삭제하시겠습니까?')) document.getElementById('delete_form').submit();" class="btn btn-danger">삭제</a>
+                    </form>
+                </div>
+                <div class="col-4"></div>
             </div>
         </div>
         <div class="col-1"></div>

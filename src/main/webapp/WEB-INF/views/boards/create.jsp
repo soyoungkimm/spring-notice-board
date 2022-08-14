@@ -18,7 +18,7 @@
         <div class="col-10">
             <c:import url="../sections/navigation.jsp"/>
             <br>
-            <form action="create" method="post">
+            <form action="/board" method="post">
                 <table class="table" style="text-align: center;">
                     <thead>
                         <tr>

@@ -20,12 +20,12 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @GetMapping
+    @GetMapping("/main")
     public String home() {
         return "home";
     }
 
-    @GetMapping("/list")
+    @GetMapping
     public String list(Model model, @RequestParam(value="p", required = false) Integer p) {
         // 페이지네이션
         int curPageNo = (p != null)? p : 1;// 현재 페이지 번호
@@ -46,12 +46,12 @@ public class BoardController {
         return "boards/detail";
     }
 
-    @GetMapping("/create-form")
+    @GetMapping("/create")
     public String createForm() {
         return "boards/create";
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public String create(@Valid Board board, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) return "boards/create";
 
@@ -71,16 +71,16 @@ public class BoardController {
         return "boards/edit";
     }
 
-    @PostMapping("/{id}/edit")
+    @PutMapping("/{id}")
     public String update(@PathVariable int id, @Valid Board board, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) return "boards/edit";
         boardService.updateBoard(board);
         return "redirect:/board/{id}";
     }
 
-    @GetMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public String deleteMovie(@PathVariable int id) {
         boardService.deleteBoard(id);
-        return "redirect:/board/list";
+        return "redirect:/board";
     }
 }

@@ -50,7 +50,7 @@
                         <c:choose>
                             <c:when test="${pagination.curPageNo > 1 }">
                                 <li class="page-item">
-                                    <a class="page-link" href="/board/list?p=${pagination.curPageNo - 1}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                                    <a class="page-link" href="/board?p=${pagination.curPageNo - 1}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
                                 </li>
                             </c:when>
                             <c:otherwise>
@@ -66,7 +66,7 @@
                                     <li class="page-item active"><a class="page-link" href="">${pageNo}</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="page-item"><a class="page-link" href="list?p=${pageNo}">${pageNo}</a></li>
+                                    <li class="page-item"><a class="page-link" href="?p=${pageNo}">${pageNo}</a></li>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
@@ -74,7 +74,7 @@
                         <c:choose>
                             <c:when test="${pagination.curPageNo < pagination.totalPages }">
                                 <li class="page-item">
-                                    <a class="page-link" href="list?p=${pagination.curPageNo + 1}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                                    <a class="page-link" href="?p=${pagination.curPageNo + 1}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
                                 </li>
                             </c:when>
                             <c:otherwise>

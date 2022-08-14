@@ -15,13 +15,13 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/board">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/board/main">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/board/list">리스트</a>
+                    <a class="nav-link" href="/board">리스트</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/board/create-form">새글작성</a>
+                    <a class="nav-link" href="/board/create">새글작성</a>
                 </li>
             </ul>
         </div>

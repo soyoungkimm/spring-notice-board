@@ -18,7 +18,8 @@
         <div class="col-10">
             <c:import url="../sections/navigation.jsp"/>
             <br>
-            <form action="/board/${board.id}/edit" method="post">
+            <form action="/board/${board.id}" method="post">
+                <input type="hidden" name="_method" value="put"/>
                 <table class="table" style="text-align: center;">
                     <thead>
                     <tr>
