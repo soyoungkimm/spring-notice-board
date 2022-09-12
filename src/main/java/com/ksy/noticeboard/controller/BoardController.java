@@ -3,6 +3,8 @@ package com.ksy.noticeboard.controller;
 import com.ksy.noticeboard.dto.Board;
 import com.ksy.noticeboard.service.BoardService;
 import com.ksy.noticeboard.util.Pagination;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,14 +25,18 @@ public class BoardController {
     private final BoardService boardService;
     private final Logger LOGGER = LoggerFactory.getLogger(BoardController.class);
 
+    @ApiOperation(value = "메인", notes = "메인 페이지입니다.")
     @GetMapping("/main")
     public String home() {
         LOGGER.info("메인 페이지 : home() 메서드 호출");
         return "home";
     }
 
+    @ApiOperation(value = "게시판 리스트", notes = "게시판 리스트 페이지입니다.")
     @GetMapping
-    public String list(Model model, @RequestParam(value="p", required = false) Integer p) {
+    public String list(Model model,
+                       @ApiParam(value = "현재 페이지", example = "1")
+                       @RequestParam(value="p", required = false) Integer p) {
         LOGGER.info("리스트 페이지 : list() 메서드 호출");
 
         // 페이지네이션
@@ -46,19 +52,24 @@ public class BoardController {
         return "boards/list";
     }
 
+    @ApiOperation(value = "상세 페이지", notes = "게시글 눌렀을 때 나오는 상세 페이지입니다.")
     @GetMapping("/{id}")
-    public String detail(Model model, @PathVariable int id) {
+    public String detail(Model model,
+                         @ApiParam(value = "글 id", required = true, example = "1")
+                         @PathVariable int id) {
         LOGGER.info("상세 페이지 : detail() 메서드 호출");
         model.addAttribute("board", boardService.getBoard(id));
         return "boards/detail";
     }
 
+    @ApiOperation(value = "새 글 작성 페이지", notes = "새 게시글 작성하는 페이지입니다.")
     @GetMapping("/create")
     public String createForm() {
         LOGGER.info("새 글 작성 페이지 : createForm() 메서드 호출");
         return "boards/create";
     }
 
+    @ApiOperation(value = "글 생성 로직", notes = "글을 생성하는 로직입니다. 새 글 작성 페이지에서 저장 버튼 누르면 호출됩니다.")
     @PostMapping
     public String create(@Valid Board board, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
         LOGGER.info("글 생성 : create() 메서드 호출");
@@ -75,23 +86,26 @@ public class BoardController {
         return "redirect:/board/{id}";
     }
 
+    @ApiOperation(value = "게시글 수정 페이지", notes = "사용자가 게시글을 수정하는 페이지 입니다.")
     @GetMapping("/{id}/edit")
-    public String updateForm(@PathVariable int id, Model model) {
+    public String updateForm(@ApiParam(value = "글 id", required = true, example = "1") @PathVariable int id, Model model) {
         LOGGER.info("글 수정 페이지 : updateForm() 메서드 호출");
         model.addAttribute("board", boardService.getBoard(id));
         return "boards/edit";
     }
 
+    @ApiOperation(value = "글 수정 로직", notes = "글을 수정하는 로직입니다.")
     @PutMapping("/{id}")
-    public String update(@PathVariable int id, @Valid Board board, BindingResult bindingResult) {
+    public String update(@ApiParam(value = "글 id", required = true, example = "1") @PathVariable int id, @Valid Board board, BindingResult bindingResult) {
         LOGGER.info("글 수정 : update() 메서드 호출");
         if(bindingResult.hasErrors()) return "boards/edit";
         boardService.updateBoard(board);
         return "redirect:/board/{id}";
     }
 
+    @ApiOperation(value = "글 삭제 로직", notes = "글을 삭제하는 로직입니다.")
     @DeleteMapping("/{id}")
-    public String deleteMovie(@PathVariable int id) {
+    public String delete(@ApiParam(value = "글 id", required = true, example = "1") @PathVariable int id) {
         LOGGER.info("글 삭제 : delete() 메서드 호출");
         boardService.deleteBoard(id);
         return "redirect:/board";
