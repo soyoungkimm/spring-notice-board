@@ -8,6 +8,7 @@ import com.ksy.noticeboard.vo.BoardVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -44,17 +45,18 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public int createBoard(Board board) {
-        boardRepository.create(board);
-        return board.getId();
+        Timestamp current_time = new Timestamp(System.currentTimeMillis());
+        board.setWriteTime(String.valueOf(current_time));
+        return boardRepository.create(board);
     }
 
     @Override
-    public void updateBoard(Board board) {
-        boardRepository.update(board);
+    public int updateBoard(Board board) {
+        return boardRepository.update(board);
     }
 
     @Override
-    public void deleteBoard(int id) {
-        boardRepository.delete(id);
+    public int deleteBoard(int id) {
+        return boardRepository.delete(id);
     }
 }

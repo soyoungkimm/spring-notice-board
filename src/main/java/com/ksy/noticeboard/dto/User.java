@@ -1,11 +1,9 @@
 package com.ksy.noticeboard.dto;
 
 import io.swagger.annotations.ApiParam;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class User {
 
     @ApiParam(value="id", example = "0")

@@ -2,7 +2,9 @@ package com.ksy.noticeboard.controller;
 
 import com.ksy.noticeboard.dto.Board;
 import com.ksy.noticeboard.service.BoardService;
+import com.ksy.noticeboard.util.CRUDFailException;
 import com.ksy.noticeboard.util.Pagination;
+import com.ksy.noticeboard.vo.BoardVO;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
 
 @Controller
 @RequiredArgsConstructor
@@ -58,8 +59,15 @@ public class BoardController {
                          @ApiParam(value = "글 id", required = true, example = "1")
                          @PathVariable int id) {
         LOGGER.info("상세 페이지 : detail() 메서드 호출");
-        model.addAttribute("board", boardService.getBoard(id));
-        return "boards/detail";
+        BoardVO boardVO =  boardService.getBoard(id);
+
+        if (boardVO.getId() == 0) {
+            throw new CRUDFailException("글을 불러오지 못했습니다.");
+        }
+        else {
+            model.addAttribute("board",boardVO);
+            return "boards/detail";
+        }
     }
 
     @ApiOperation(value = "새 글 작성 페이지", notes = "새 게시글 작성하는 페이지입니다.")
@@ -74,16 +82,19 @@ public class BoardController {
     public String create(@Valid Board board, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
         LOGGER.info("글 생성 : create() 메서드 호출");
 
-        if(bindingResult.hasErrors()) return "boards/create";
+//        if(bindingResult.hasErrors()) return "boards/create";
 
         int user_id = 1; // 현재 로그인 한 사람 <-- 임시
         board.setWriterId(user_id);
-        Timestamp current_time = new Timestamp(System.currentTimeMillis());
-        board.setWriteTime(String.valueOf(current_time));
-        int id = boardService.createBoard(board);
+        int result = boardService.createBoard(board);
 
-        redirectAttributes.addAttribute("id", id);
-        return "redirect:/board/{id}";
+        if (result == 1) {
+            redirectAttributes.addAttribute("id", board.getId());
+            return "redirect:/board/{id}";
+        }
+        else {
+            throw new CRUDFailException("글을 생성하지 못했습니다.");
+        }
     }
 
     @ApiOperation(value = "게시글 수정 페이지", notes = "사용자가 게시글을 수정하는 페이지 입니다.")
@@ -96,18 +107,31 @@ public class BoardController {
 
     @ApiOperation(value = "글 수정 로직", notes = "글을 수정하는 로직입니다.")
     @PutMapping("/{id}")
-    public String update(@ApiParam(value = "글 id", required = true, example = "1") @PathVariable int id, @Valid Board board, BindingResult bindingResult) {
+    public String update(@Valid Board board, BindingResult bindingResult) {
         LOGGER.info("글 수정 : update() 메서드 호출");
-        if(bindingResult.hasErrors()) return "boards/edit";
-        boardService.updateBoard(board);
-        return "redirect:/board/{id}";
+//        if(bindingResult.hasErrors()) return "boards/edit";
+
+        int result = boardService.updateBoard(board);
+
+        if (result == 1) {
+            return "redirect:/board/{id}";
+        }
+        else {
+            throw new CRUDFailException("글 수정에 실패했습니다.");
+        }
     }
 
     @ApiOperation(value = "글 삭제 로직", notes = "글을 삭제하는 로직입니다.")
     @DeleteMapping("/{id}")
     public String delete(@ApiParam(value = "글 id", required = true, example = "1") @PathVariable int id) {
         LOGGER.info("글 삭제 : delete() 메서드 호출");
-        boardService.deleteBoard(id);
-        return "redirect:/board";
+        int result = boardService.deleteBoard(id);
+
+        if (result == 1) {
+            return "redirect:/board";
+        }
+        else {
+            throw new CRUDFailException("글 삭제에 실패했습니다.");
+        }
     }
 }

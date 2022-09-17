@@ -1,10 +1,11 @@
 package com.ksy.noticeboard.vo;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BoardVO {
     private int id;
     private String title;

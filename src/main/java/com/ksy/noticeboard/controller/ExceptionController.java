@@ -1,5 +1,6 @@
 package com.ksy.noticeboard.controller;
 
+import com.ksy.noticeboard.util.CRUDFailException;
 import com.ksy.noticeboard.util.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,14 @@ public class ExceptionController {
     protected String handleNumberFormatException(Exception e, Model model) {
         LOGGER.error("400:number format exception 발생");
         ErrorResponse errorResponse = new ErrorResponse(400, "숫자가 입력되어야 합니다.");
+        model.addAttribute("error", errorResponse);
+        return "errors/error";
+    }
+
+    @ExceptionHandler(CRUDFailException.class)
+    protected String handleCRUDFailExceptionException(Exception e, Model model) {
+        LOGGER.error("500:crud result exception 발생");
+        ErrorResponse errorResponse = new ErrorResponse(500, e.getMessage());
         model.addAttribute("error", errorResponse);
         return "errors/error";
     }

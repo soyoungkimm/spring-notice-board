@@ -1,13 +1,14 @@
 package com.ksy.noticeboard.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import io.swagger.annotations.ApiParam;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Board {
     @ApiParam(value="글 id", example = "1")
     private int id;
