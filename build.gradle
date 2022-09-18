@@ -3,6 +3,45 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'war'
+	id 'jacoco'
+}
+
+jacoco {
+	toolVersion = "0.8.7"
+}
+
+test {
+		finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+	reports {
+		html.enabled true
+		csv.enabled false
+		xml.enabled false
+	}
+
+	finalizedBy jacocoTestCoverageVerification
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			element = 'BUNDLE'
+			limit {
+				counter = 'INSTRUCTION'
+				value = 'COVEREDRATIO'
+//				minimum = 0.80
+			}
+
+			element = 'METHOD'
+			limit {
+				counter = 'LINE'
+				value = 'TOTALCOUNT'
+//				maximum = 50
+			}
+		}
+	}
 }
 
 group = 'com.ksy'
@@ -20,6 +59,7 @@ repositories {
 }
 
 dependencies {
+
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
