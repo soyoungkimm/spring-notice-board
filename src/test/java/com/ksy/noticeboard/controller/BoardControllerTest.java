@@ -37,9 +37,6 @@ public class BoardControllerTest {
     @MockBean
     BoardServiceImpl boardService;
 
-    @Mock
-    private BindingResult mockBindingResult;
-
     @BeforeEach
     void beforeEach() {
         System.out.println("테스트 시작");
@@ -140,15 +137,15 @@ public class BoardControllerTest {
     public void createTest() throws Exception {
         // given
         Board givenBoard = Board.builder()
-                .id(1)
                 .title("테스트")
                 .content("테스트 내용")
                 .writeTime("2022-07-28 18:26:39")
                 .viewCount(0)
                 .state(1)
-                .writerId(2)
+                .writerId(1)
                 .build();
         given(boardService.createBoard(givenBoard)).willReturn(1);
+        givenBoard.setId(1);
         Gson gson = new Gson();
         String content = gson.toJson(givenBoard);
 
@@ -157,7 +154,7 @@ public class BoardControllerTest {
                         post("/board")
                                 .content(content)
                                 .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/board/" + givenBoard.getId()))
                 .andDo(print());
 
         verify(boardService).createBoard(givenBoard);
@@ -213,7 +210,7 @@ public class BoardControllerTest {
                         put("/board/" + boardId)
                                 .content(content)
                                 .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(view().name("redirect:/board/{id}"))
+                .andExpect(redirectedUrl("/board/" + boardId))
                 .andDo(print());
 
         verify(boardService).updateBoard(givenBoard);

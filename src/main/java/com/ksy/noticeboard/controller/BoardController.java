@@ -79,10 +79,10 @@ public class BoardController {
 
     @ApiOperation(value = "글 생성 로직", notes = "글을 생성하는 로직입니다. 새 글 작성 페이지에서 저장 버튼 누르면 호출됩니다.")
     @PostMapping
-    public String create(@Valid Board board, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
+    public String create(@Valid @RequestBody Board board, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
         LOGGER.info("글 생성 : create() 메서드 호출");
 
-//        if(bindingResult.hasErrors()) return "boards/create";
+        if(bindingResult.hasErrors()) return "boards/create";
 
         int user_id = 1; // 현재 로그인 한 사람 <-- 임시
         board.setWriterId(user_id);
@@ -107,9 +107,9 @@ public class BoardController {
 
     @ApiOperation(value = "글 수정 로직", notes = "글을 수정하는 로직입니다.")
     @PutMapping("/{id}")
-    public String update(@Valid Board board, BindingResult bindingResult) {
+    public String update(@Valid @RequestBody Board board, BindingResult bindingResult) {
         LOGGER.info("글 수정 : update() 메서드 호출");
-//        if(bindingResult.hasErrors()) return "boards/edit";
+        if(bindingResult.hasErrors()) return "boards/edit";
 
         int result = boardService.updateBoard(board);
 
